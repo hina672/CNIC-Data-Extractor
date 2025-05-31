@@ -1,0 +1,71 @@
+import cv2
+import easyocr
+import base64
+import numpy as np
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+reader = easyocr.Reader(['en', 'ur'])
+
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+
+IMAGE_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', 
+                    '.JPG', '.JPEG', '.PNG', '.GIF', '.BMP', '.TIFF')
+
+def image_to_base64(image, ext=".jpg"):
+    """Convert an image (NumPy array) to a Base64 string using a supported format."""
+    if ext.lower() not in IMAGE_EXTENSIONS:
+        ext = ".jpg"  
+
+    _, buffer = cv2.imencode(ext, image)
+    return base64.b64encode(buffer).decode("utf-8")
+
+def extract_cnic_data(image_np):
+    """Extract CNIC text and detect a face, returning Base64 image and text."""
+    try:
+        gray = cv2.cvtColor(image_np, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+        extracted_text = "No text detected"
+        face_base64 = None  
+
+        if len(faces) > 0:
+            x, y, w, h = faces[0]  
+            face = image_np[y:y+h, x:x+w]
+            face_base64 = image_to_base64(face)  
+        
+        results = reader.readtext(image_np)
+        if results:
+            extracted_text = "\n".join([res[1] for res in results])
+
+        return {
+            "extracted_text": extracted_text,
+            "face_image_base64": face_base64 if face_base64 else "No face detected"
+        }
+
+    except Exception as e:
+        return {"error": f"Error processing image: {str(e)}"}
+
+
+@app.route("/", methods=["POST"])
+def upload_cnic():
+    """API to upload an image and return extracted text + Base64 face image."""
+    if "file" not in request.files:
+        return jsonify({"error": "No file part"}), 400
+
+    file = request.files["file"]
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+    
+    file_bytes = np.frombuffer(file.read(), np.uint8)
+    image_np = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+
+    extracted_data = extract_cnic_data(image_np)
+
+    return jsonify({"CNIC_extracted": extracted_data}), 201
+
+
+if __name__ == "__main__":
+    app.run(debug=True, use_reloader=False)
