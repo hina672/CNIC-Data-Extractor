@@ -1,4 +1,3 @@
-# README Description for CNIC Extraction Project
 
 This project is a Flask-based web API that processes images of CNIC cards to extract text and detect faces using computer vision and OCR techniques. The system supports input either as a Base64 encoded image or as an uploaded image file, and it returns the extracted text and the detected face as a Base64 encoded image.
 
