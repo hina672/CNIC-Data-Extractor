@@ -9,7 +9,7 @@ def image_to_base64_string(image_path):
         return base64_str
 
 
-image_path = r"G:\My Drive\W\Paperfree office work\CNIC Data Extraction (2nd proj)\CNIC Data Extraction_TM\R.png"
+image_path = r".png"
 
 
 base64_string = image_to_base64_string(image_path)
