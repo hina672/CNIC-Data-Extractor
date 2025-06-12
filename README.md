@@ -6,7 +6,7 @@ This project is a Flask-based web API that processes images of CNIC cards to ext
 1. **encode.py**
   This utility script reads an image file from a given path and converts it into a Base64 encoded string. This encoded string can be used to send image data over APIs or store it in text-based formats. It helps in preparing images for transmission in JSON or other text-based protocols where raw image files cannot be sent directly.
 
-screenshots/cnic encode string.PNG
+![Preview](screenshots/cnic encode string.PNG)
 
 3. **input base64.py**
    This file contains the Flask API that accepts a POST request with a Base64 encoded image of a CNIC card. It decodes the Base64 string into an image, uses OpenCV to detect the face, extracts text using EasyOCR, and returns the extracted CNIC text and the detected face image encoded back in Base64 format.
