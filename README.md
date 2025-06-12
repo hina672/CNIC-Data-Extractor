@@ -17,9 +17,9 @@ This project is a Flask-based web API that processes images of CNIC cards to ext
 5. **decode.py**
    This utility script decodes a Base64 encoded image string (for example, the face image returned by the APIs) back into an image format usable for display or saving. It helps in converting the Base64 string back to a normal image for further processing or viewing.
 
-   🔐 Note: This is a public demo overview. The full source code is available upon request. Contact me via LinkedIn https://www.linkedin.com/in/hinaasad-/ or email at hinaasad672@gmail.com.
-
 
 **Summary:**
 The project leverages OpenCV's face detection and EasyOCR's text recognition to provide a reliable CNIC data extraction tool. It offers flexibility in input methods (Base64 or file upload) and outputs both textual data and facial images in Base64, making it easy to integrate with web or mobile clients.
+
+ 🔐 Note: This is a public demo overview. The full source code is available upon request. Contact me via LinkedIn https://www.linkedin.com/in/hinaasad-/ or email at hinaasad672@gmail.com.
 
