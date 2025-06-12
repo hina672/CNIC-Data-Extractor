@@ -21,5 +21,5 @@ This project is a Flask-based web API that processes images of CNIC cards to ext
 **Summary:**
 The project leverages OpenCV's face detection and EasyOCR's text recognition to provide a reliable CNIC data extraction tool. It offers flexibility in input methods (Base64 or file upload) and outputs both textual data and facial images in Base64, making it easy to integrate with web or mobile clients.
 
- 🔐 Note: This is a public demo overview. The full source code is available upon request. Contact me via LinkedIn https://www.linkedin.com/in/hinaasad-/ or email at hinaasad672@gmail.com.
+ 🔐 Note: This is a public demo overview. Preview images are intentionally excluded from this public demo to respect privacy and data sensitivity. The full source code is available upon request. Contact me via LinkedIn https://www.linkedin.com/in/hinaasad-/ or email at hinaasad672@gmail.com.
 
